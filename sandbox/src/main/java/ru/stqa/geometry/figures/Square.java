@@ -6,7 +6,7 @@ public class Square {
            "Площадь квадрата со стороной %.1f = %.1f", side, getSquareArea(side)));
     }
 
-    private static double getSquareArea(double side) {
+    public static double getSquareArea(double side) {
         return side * side;
     }
 }
