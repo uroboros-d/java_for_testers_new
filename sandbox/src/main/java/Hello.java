@@ -2,15 +2,24 @@ import java.io.File;
 
 public class Hello {
     public static void main(String[] args) {
-        System.out.println("Hello, world!");
+        try {
+            var z = calculate();
+            System.out.println(z);
 
-        var configFile = new File("sandbox/build.gradle");
-        // создать объект файл с указанием модуля, где он находится
+        } catch ( ArithmeticException exception) {         //что у нас ArithmeticException, мы знаем из предыдущего лога - пропечатано серым
+            exception.printStackTrace();    //вывести сообщение об исключении
+        }
+    }
+    private static int calculate() {
+        var x = 1;
+        var y = 0;
+        var z = divide(x, y);
+        return z;
+    }
 
-        System.out.println(configFile.exists());
-        // проверить существование объекта класса File с пар-ром pathname = "sandbox/build.gradle"
+    private static int divide(int x, int y) {
+        var z = x / y;
+        return z;
 
-        System.out.println(configFile.getAbsolutePath());
-        // получить инф об абсолютном пути до объекта
     }
 }
