@@ -6,7 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class GroupCreationTests {
+public class GroupCreationTests extends TestBase {
     private static WebDriver driver;
 
     @BeforeEach
