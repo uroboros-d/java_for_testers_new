@@ -1,3 +1,4 @@
+import model.Group;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -8,12 +9,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class TestBase {
 
     protected static WebDriver driver;
-
-    protected static void removeGroup() {
-        driver.findElement(By.name("selected[]")).click();
-        driver.findElement(By.name("delete")).click();
-        driver.findElement(By.linkText("groups")).click();
-    }
 
     @BeforeEach
     public void setUp() {
@@ -39,14 +34,14 @@ public class TestBase {
         }
     }
 
-    protected void createGroup(String group_name, String group_header, String group_footer) {
+    protected void createGroup(Group group) {
         driver.findElement(By.name("new")).click();
-        driver.findElement(By.name("group_name")).click();
-        driver.findElement(By.name("group_name")).sendKeys(group_name);
-        driver.findElement(By.name("group_header")).click();
-        driver.findElement(By.name("group_header")).sendKeys(group_header);
-        driver.findElement(By.name("group_footer")).click();
-        driver.findElement(By.name("group_footer")).sendKeys(group_footer);
+        driver.findElement(By.name("name")).click();
+        driver.findElement(By.name("name")).sendKeys(group.name());
+        driver.findElement(By.name("header")).click();
+        driver.findElement(By.name("header")).sendKeys(group.header());
+        driver.findElement(By.name("footer")).click();
+        driver.findElement(By.name("footer")).sendKeys(group.footer());
         driver.findElement(By.name("submit")).click();
         driver.findElement(By.linkText("group page")).click();
     }
@@ -59,5 +54,11 @@ public class TestBase {
 
     protected boolean isGroupPresent() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    protected static void removeGroup() {
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.name("delete")).click();
+        driver.findElement(By.linkText("groups")).click();
     }
 }
