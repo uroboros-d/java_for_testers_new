@@ -12,12 +12,12 @@ public record Contact(String firstName, String lastName, String address) {
         return new Contact(firstName, this.lastName, this.address);
     }
 
-    public Contact withHeader(String header) {
+    public Contact withLastName(String lastName) {
         //вернуть объект с другим хэдером, а имя и футер такие же как у существующего объекта
         return new Contact(this.firstName, lastName, this.address);
     }
 
-    public Contact withFooter(String address) {
+    public Contact withAddress(String address) {
         //вернуть объект с другим футером, а имя и хэдер такие же как у существующего объекта
         return new Contact(this.firstName, this.lastName, address);
     }
