@@ -54,7 +54,7 @@ public class TestBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    protected static void removeGroup() {
+    protected void removeGroup() {
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.name("delete")).click();
         driver.findElement(By.linkText("groups")).click();
@@ -74,10 +74,43 @@ public class TestBase {
     }
 
     protected void createContact (Contact сontact){
+        //тайм аут 1 сек перед выполнением
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
         driver.findElement(By.name("firstname")).sendKeys(сontact.firstName());
         driver.findElement(By.name("lastname")).sendKeys(сontact.lastName());
         driver.findElement(By.name("address")).sendKeys(сontact.address());
         driver.findElement(By.name("submit")).click();
         driver.findElement(By.linkText("home")).click();
+    }
+
+    protected void openHomePage() {
+        if (!isElementPresent(By.name("searchstring"))) {
+            driver.findElement(By.linkText("home")).click();
+        }
+    }
+
+    protected boolean isContactPresent() {
+        //тайм аут 1 сек перед выполнением
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    protected void removeContact() {
+        //тайм аут 1 сек перед выполнением
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Pause");
+        }
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.name("delete")).click();
     }
 }
