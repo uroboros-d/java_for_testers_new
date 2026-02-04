@@ -1,3 +1,5 @@
+package manager;
+
 import model.Contact;
 import model.Group;
 import org.openqa.selenium.By;
@@ -9,10 +11,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 //в нем методы для управления приложением
 public class ApplicationManager {
 
-
     protected static WebDriver driver;
 
-    void init() {
+    public void init() {
         if (driver == null) {
             driver = new FirefoxDriver();
             //перед завершением работы Java завершает работу драйвера:
@@ -26,7 +27,7 @@ public class ApplicationManager {
         }
     }
 
-    protected boolean isElementPresent(By locator) {
+    public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
             return true;
@@ -35,7 +36,7 @@ public class ApplicationManager {
         }
     }
 
-    protected void createGroup(Group group) {
+    public void createGroup(Group group) {
         driver.findElement(By.name("new")).click();
         driver.findElement(By.name("group_name")).sendKeys(group.name());
         driver.findElement(By.name("group_header")).sendKeys(group.header());
@@ -44,29 +45,24 @@ public class ApplicationManager {
         driver.findElement(By.linkText("group page")).click();
     }
 
-    protected void openGroupsPage() {
+    public void openGroupsPage() {
         if (!isElementPresent(By.name("new"))) {
             driver.findElement(By.linkText("groups")).click();
         }
     }
 
-    protected boolean isGroupPresent() {
+    public boolean isGroupPresent() {
         return isElementPresent(By.name("selected[]"));
     }
 
-    protected void removeGroup() {
+    public void removeGroup() {
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.name("delete")).click();
         driver.findElement(By.linkText("groups")).click();
     }
 
-    protected void createContact (Contact сontact){
-        //тайм аут 1 сек перед выполнением
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Pause");
-        }
+    public void createContact (Contact сontact){
+        timeout(1000);
         driver.findElement(By.name("firstname")).sendKeys(сontact.firstName());
         driver.findElement(By.name("lastname")).sendKeys(сontact.lastName());
         driver.findElement(By.name("address")).sendKeys(сontact.address());
@@ -74,46 +70,35 @@ public class ApplicationManager {
         driver.findElement(By.linkText("home")).click();
     }
 
-    protected boolean isContactPresent() {
-        //тайм аут 1 сек перед выполнением
+    private void timeout(int ms) {
+        //тайм аут ms миллисекунд
         try {
-            Thread.sleep(1000);
+            Thread.sleep(ms);
         } catch (InterruptedException e) {
             throw new RuntimeException("Pause");
         }
+    }
+
+    public boolean isContactPresent() {
+        timeout(1000);
         return isElementPresent(By.name("selected[]"));
     }
 
-    protected void removeContact() {
-        //тайм аут 1 сек перед выполнением
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Pause");
-        }
+    public void removeContact() {
+        timeout(1000);
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.name("delete")).click();
     }
 
-    protected void openAddNewPage() {
-        //тайм аут 1 сек перед выполнением
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Pause");
-        }
+    public void openAddNewPage() {
+        timeout(1000);
         if (!isElementPresent(By.name("submit"))) {
             driver.findElement(By.linkText("add new")).click();
         }
     }
 
-    protected void openHomePage() {
-        //тайм аут 1 сек перед выполнением
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Pause");
-        }
+    public void openHomePage() {
+        timeout(1000);
         if (!isElementPresent(By.name("searchstring"))) {
             driver.findElement(By.linkText("home")).click();
         }
