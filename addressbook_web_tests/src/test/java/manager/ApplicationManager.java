@@ -1,6 +1,5 @@
 package manager;
 
-import model.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
@@ -13,6 +12,7 @@ public class ApplicationManager {
     protected WebDriver driver;
     private LoginHelper session;
     private GroupHelper groups;
+    public ContactHelper contacts;
 
     public void init() {
         if (driver == null) {
@@ -40,6 +40,13 @@ public class ApplicationManager {
         return groups;
     }
 
+    public ContactHelper contacts() {
+        if (contacts == null) {
+            contacts = new ContactHelper(this);
+        }
+        return contacts;
+    }
+
     public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
@@ -49,16 +56,7 @@ public class ApplicationManager {
         }
     }
 
-    public void createContact (Contact сontact){
-        timeout(1000);
-        driver.findElement(By.name("firstname")).sendKeys(сontact.firstName());
-        driver.findElement(By.name("lastname")).sendKeys(сontact.lastName());
-        driver.findElement(By.name("address")).sendKeys(сontact.address());
-        driver.findElement(By.name("submit")).click();
-        driver.findElement(By.linkText("home")).click();
-    }
-
-    private void timeout(int ms) {
+    public void timeout(int ms) {
         //тайм аут ms миллисекунд
         try {
             Thread.sleep(ms);
@@ -67,28 +65,4 @@ public class ApplicationManager {
         }
     }
 
-    public boolean isContactPresent() {
-        timeout(1000);
-        return isElementPresent(By.name("selected[]"));
-    }
-
-    public void removeContact() {
-        timeout(1000);
-        driver.findElement(By.name("selected[]")).click();
-        driver.findElement(By.name("delete")).click();
-    }
-
-    public void openAddNewPage() {
-        timeout(1000);
-        if (!isElementPresent(By.name("submit"))) {
-            driver.findElement(By.linkText("add new")).click();
-        }
-    }
-
-    public void openHomePage() {
-        timeout(1000);
-        if (!isElementPresent(By.name("searchstring"))) {
-            driver.findElement(By.linkText("home")).click();
-        }
-    }
 }
