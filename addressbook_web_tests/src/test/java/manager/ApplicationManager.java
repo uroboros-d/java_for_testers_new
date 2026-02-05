@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class ApplicationManager {
 
     protected static WebDriver driver;
+    private LoginHelper session;
 
     public void init() {
         if (driver == null) {
@@ -21,10 +22,21 @@ public class ApplicationManager {
 
             driver.get("http://localhost/addressbook/index.php");
             driver.manage().window().setSize(new Dimension(854, 694));
-            driver.findElement(By.name("user")).sendKeys("admin");
-            driver.findElement(By.name("pass")).sendKeys("secret");
-            driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
+            login("admin", "secret");
         }
+    }
+
+    private static void login(String user, String password) {
+        driver.findElement(By.name("user")).sendKeys(user);
+        driver.findElement(By.name("pass")).sendKeys(password);
+        driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
+    }
+
+    public LoginHelper session() {
+        if (session == null) {
+            session = new LoginHelper();
+        }
+        return session;
     }
 
     public boolean isElementPresent(By locator) {
