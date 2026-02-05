@@ -11,7 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 //в нем методы для управления приложением
 public class ApplicationManager {
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
     private LoginHelper session;
 
     public void init() {
@@ -22,19 +22,13 @@ public class ApplicationManager {
 
             driver.get("http://localhost/addressbook/index.php");
             driver.manage().window().setSize(new Dimension(854, 694));
-            login("admin", "secret");
+            session.login("admin", "secret");
         }
-    }
-
-    private static void login(String user, String password) {
-        driver.findElement(By.name("user")).sendKeys(user);
-        driver.findElement(By.name("pass")).sendKeys(password);
-        driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
     }
 
     public LoginHelper session() {
         if (session == null) {
-            session = new LoginHelper();
+            session = new LoginHelper(this);
         }
         return session;
     }
