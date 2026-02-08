@@ -70,5 +70,4 @@ public class ApplicationManager {
             throw new RuntimeException("Pause");
         }
     }
-
 }
