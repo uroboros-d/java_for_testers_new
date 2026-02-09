@@ -13,10 +13,15 @@ public class GroupCreationTests extends TestBase {
 
     public static List<Group> groupProvider() {
         var result = new ArrayList<Group>(List.of(
-                new Group(),
-                new Group().withName("group name only"),
-                new Group("group name","",""),
                 new Group("group name'","","")));
+        //перебирает 2 комбинации названия
+        for(var name: List.of("", "name")){
+            for(var header: List.of("", "header")){
+                for(var footer: List.of("", "footer")){
+                    result.add(new Group(name, header, footer));
+                }
+            }
+        }
         for (int i = 0; i < 5; i++) {
             result.add(new Group(randomString(i*10), randomString(i*10), randomString(i*10)));
         }
