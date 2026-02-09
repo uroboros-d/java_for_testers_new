@@ -5,18 +5,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GroupCreationTests extends TestBase {
 
-    public static List<String> groupNameProvider() {
-        var result = new ArrayList<String>(List.of("group name", "group name'"));
+    public static List<Group> groupProvider() {
+        var result = new ArrayList<Group>(List.of(
+                new Group(),
+                new Group().withName("group name only"),
+                new Group("group name","",""),
+                new Group("group name'","","")));
         for (int i = 0; i < 5; i++) {
-            result.add(randomString(i*10));
+            result.add(new Group(randomString(i*10), randomString(i*10), randomString(i*10)));
         }
         return result;
     }
@@ -30,18 +32,18 @@ public class GroupCreationTests extends TestBase {
 //        Assertions.assertEquals(groupCount+1, newGroupCount);
 //    }
 
-    @Test
-    public void canCreateGroupWithEmptyName() {
-        app.groups().createGroup(new Group());
-    }
+//    @Test
+//    public void canCreateGroupWithEmptyName() {
+//        app.groups().createGroup(new Group());
+//    }
 
-    @Test
-    public void canCreateGroupWithNameOnly() {
-        app.groups().createGroup(new Group().withName("group name only"));
-    }
+//    @Test
+//    public void canCreateGroupWithNameOnly() {
+//        app.groups().createGroup(new Group().withName("group name only"));
+//    }
 
     @ParameterizedTest
-    @MethodSource("groupNameProvider")
+    @MethodSource("groupProvider")
     public void canCreateMultipleGroups(String name) {
         int groupCount = app.groups().getCount();
         app.groups().createGroup(new Group(name, "group header", "group footer"));
