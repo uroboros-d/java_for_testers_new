@@ -44,9 +44,9 @@ public class GroupCreationTests extends TestBase {
 
     @ParameterizedTest
     @MethodSource("groupProvider")
-    public void canCreateMultipleGroups(String name) {
+    public void canCreateMultipleGroups(Group group) {
         int groupCount = app.groups().getCount();
-        app.groups().createGroup(new Group(name, "group header", "group footer"));
+        app.groups().createGroup(group);
         int newGroupCount = app.groups().getCount();
         Assertions.assertEquals(groupCount+1, newGroupCount);
     }
