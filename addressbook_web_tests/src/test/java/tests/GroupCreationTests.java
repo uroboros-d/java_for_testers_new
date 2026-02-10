@@ -16,12 +16,18 @@ public class GroupCreationTests extends TestBase {
         for(var name: List.of("", "name")){
             for(var header: List.of("", "header")){
                 for(var footer: List.of("", "footer")){
-                    result.add(new Group("", name, header, footer));
+                    result.add(new Group()
+                            .withName(name)
+                            .withHeader(header)
+                            .withFooter(footer));
                 }
             }
         }
         for (int i = 0; i < 5; i++) {
-            result.add(new Group().withName(randomString(i*10)).withHeader(randomString(i*10)).withFooter(randomString(i*10)));
+            result.add(new Group()
+                    .withName(randomString(i*10))
+                    .withHeader(randomString(i*10))
+                    .withFooter(randomString(i*10)));
         }
         return result;
     }
