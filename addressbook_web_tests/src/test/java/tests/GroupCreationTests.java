@@ -21,7 +21,7 @@ public class GroupCreationTests extends TestBase {
             }
         }
         for (int i = 0; i < 5; i++) {
-            result.add(new Group("", randomString(i*10), randomString(i*10), randomString(i*10)));
+            result.add(new Group().withName(randomString(i*10)).withHeader(randomString(i*10)).withFooter(randomString(i*10)));
         }
         return result;
     }
