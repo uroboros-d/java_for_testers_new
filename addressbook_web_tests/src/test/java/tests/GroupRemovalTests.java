@@ -9,7 +9,7 @@ public class GroupRemovalTests extends TestBase {
     @Test
     public void canRemoveGroup() {
         if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new Group("group name to delete", "group header to delete", "group footer to delete"));
+            app.groups().createGroup(new Group("", "group name to delete", "group header to delete", "group footer to delete"));
         }
         int groupCount = app.groups().getCount();
         app.groups().removeGroup();
@@ -20,7 +20,7 @@ public class GroupRemovalTests extends TestBase {
     @Test
     public void canRemoveAllGroupsAtOnce() {
         if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new Group("group name to delete", "group header to delete", "group footer to delete"));
+            app.groups().createGroup(new Group("", "group name to delete", "group header to delete", "group footer to delete"));
         }
         app.groups().removeAllGroups();
         Assertions.assertEquals(0, app.groups().getCount());
