@@ -12,8 +12,7 @@ import java.util.List;
 public class GroupCreationTests extends TestBase {
 
     public static List<Group> groupProvider() {
-        var result = new ArrayList<Group>(List.of(
-                new Group("group name'","","")));
+        var result = new ArrayList<Group>();
         //перебирает 2 комбинации названия
         for(var name: List.of("", "name")){
             for(var header: List.of("", "header")){
@@ -25,6 +24,12 @@ public class GroupCreationTests extends TestBase {
         for (int i = 0; i < 5; i++) {
             result.add(new Group(randomString(i*10), randomString(i*10), randomString(i*10)));
         }
+        return result;
+    }
+
+    public static List<Group> negativeGroupProvider() {
+        var result = new ArrayList<Group>(List.of(
+                new Group("group name'","","")));
         return result;
     }
 
@@ -54,5 +59,14 @@ public class GroupCreationTests extends TestBase {
         app.groups().createGroup(group);
         int newGroupCount = app.groups().getCount();
         Assertions.assertEquals(groupCount+1, newGroupCount);
+    }
+
+    @ParameterizedTest
+    @MethodSource("negativeGroupProvider")
+    public void canNotCreateGroup(Group group) {
+        int groupCount = app.groups().getCount();
+        app.groups().createGroup(group);
+        int newGroupCount = app.groups().getCount();
+        Assertions.assertEquals(groupCount, newGroupCount);
     }
 }
