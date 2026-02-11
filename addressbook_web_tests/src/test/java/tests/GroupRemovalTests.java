@@ -4,6 +4,8 @@ import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 public class GroupRemovalTests extends TestBase {
 
     @Test
@@ -12,6 +14,7 @@ public class GroupRemovalTests extends TestBase {
             app.groups().createGroup(new Group("", "group name to delete", "group header to delete", "group footer to delete"));
         }
         int groupCount = app.groups().getCount();
+        List<Group> oldGroups = app.groups().getList();
         app.groups().removeGroup();
         int newGroupCount = app.groups().getCount();
         Assertions.assertEquals(groupCount-1, newGroupCount);
