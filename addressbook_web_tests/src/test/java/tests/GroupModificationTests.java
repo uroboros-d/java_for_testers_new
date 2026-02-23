@@ -1,9 +1,11 @@
 package tests;
 
 import model.Group;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class GroupModificationTests extends TestBase {
@@ -11,7 +13,10 @@ public class GroupModificationTests extends TestBase {
     @Test
     public void canModifyGroup() {
         if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new Group("", "ModifyGroup name", "ModifyGroup header", "ModifyGroup footer"));
+            app.groups().createGroup(new Group()
+                    .withName("group name to modify")
+                    .withHeader("group header to modify")
+                    .withFooter("group footer to modify"));
         }
         var oldGroups = app.groups().getList();
         var rnd = new Random();
@@ -21,6 +26,11 @@ public class GroupModificationTests extends TestBase {
         var newGroups = app.groups().getList();
         var expectedList = new ArrayList<>(oldGroups);
         expectedList.set(index, testData.withId(oldGroups.get(index).id()));
-        
+        Comparator<Group> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newGroups.sort(compareById);
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newGroups, expectedList);
     }
 }
