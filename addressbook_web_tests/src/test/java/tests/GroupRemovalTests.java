@@ -13,7 +13,10 @@ public class GroupRemovalTests extends TestBase {
     @Test
     public void canRemoveGroup() {
         if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new Group("", "group name to delete", "group header to delete", "group footer to delete"));
+            app.groups().createGroup( new Group()
+                    .withName("group name to delete")
+                    .withHeader("group header to delete")
+                    .withFooter("group footer to delete"));
         }
         var oldGroups = app.groups().getList();
         var rnd = new Random();
@@ -29,7 +32,10 @@ public class GroupRemovalTests extends TestBase {
     @Test
     public void canRemoveAllGroupsAtOnce() {
         if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new Group("", "group name to delete", "group header to delete", "group footer to delete"));
+            app.groups().createGroup(new Group()
+                    .withName("group name to delete")
+                    .withHeader("group header to delete")
+                    .withFooter("group footer to delete"));
         }
         app.groups().removeAllGroups();
         Assertions.assertEquals(0, app.groups().getCount());
