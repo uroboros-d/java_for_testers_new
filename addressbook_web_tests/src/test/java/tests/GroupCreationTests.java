@@ -39,25 +39,6 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
-//    @ParameterizedTest
-//    @ValueSource(strings = {"group name", "group name'"})
-//    public void canCreateGroup(String name) {
-//        int groupCount = app.groups().getCount();
-//        app.groups().createGroup(new Group(name, "group header", "group footer"));
-//        int newGroupCount = app.groups().getCount();
-//        Assertions.assertEquals(groupCount+1, newGroupCount);
-//    }
-
-//    @Test
-//    public void canCreateGroupWithEmptyName() {
-//        app.groups().createGroup(new Group());
-//    }
-
-//    @Test
-//    public void canCreateGroupWithNameOnly() {
-//        app.groups().createGroup(new Group().withName("group name only"));
-//    }
-
     @ParameterizedTest
     @MethodSource("groupProvider")
     public void canCreateMultipleGroups(Group group) {
@@ -85,4 +66,23 @@ public class GroupCreationTests extends TestBase {
         var newGroups = app.groups().getList();
         Assertions.assertEquals(newGroups, oldGroups);
     }
+
+    //    @ParameterizedTest
+//    @ValueSource(strings = {"group name", "group name'"})
+//    public void canCreateGroup(String name) {
+//        int groupCount = app.groups().getCount();
+//        app.groups().createGroup(new Group(name, "group header", "group footer"));
+//        int newGroupCount = app.groups().getCount();
+//        Assertions.assertEquals(groupCount+1, newGroupCount);
+//    }
+
+//    @Test
+//    public void canCreateGroupWithEmptyName() {
+//        app.groups().createGroup(new Group());
+//    }
+
+//    @Test
+//    public void canCreateGroupWithNameOnly() {
+//        app.groups().createGroup(new Group().withName("group name only"));
+//    }
 }

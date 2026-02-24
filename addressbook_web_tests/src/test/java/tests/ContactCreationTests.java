@@ -1,13 +1,10 @@
 package tests;
 
 import model.Contact;
-import model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +12,7 @@ public class ContactCreationTests extends TestBase {
 
     public static List<Contact> contactNameProvider() {
         var result = new ArrayList<Contact>();
+        //построение полного набора комбинаций
         for (var firstname : List.of("", "firstname")) {
             for (var lastname : List.of("", "lastname")) {
                 for (var address : List.of("", "address")) {
