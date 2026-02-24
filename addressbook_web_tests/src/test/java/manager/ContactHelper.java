@@ -1,7 +1,10 @@
 package manager;
 
 import model.Contact;
+import model.Group;
 import org.openqa.selenium.By;
+
+import java.util.ArrayList;
 
 public class ContactHelper {
 
@@ -42,5 +45,24 @@ public class ContactHelper {
         if (!manager.isElementPresent(By.name("searchstring"))) {
             manager.driver.findElement(By.linkText("home")).click();
         }
+    }
+
+    public int getCount() {
+        openHomePage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public Object getList() {
+        openHomePage();
+        var contacts = new ArrayList<Contact>();
+        var tds = manager.driver.findElements(By.cssSelector("td.center"));
+        for (var td : tds) {
+            var name = td.getText();
+            var checkbox = td.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new Contact().withId(id).withFirstName(name));
+        }
+        return contacts;
+
     }
 }
